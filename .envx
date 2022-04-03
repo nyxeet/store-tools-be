@@ -1,3 +1,0 @@
-PORT = 3001
-DB_HOST = mongodb+srv://nyxeet:qwerty123@cluster0.b1g9r.mongodb.net/store?retryWrites=true&w=majority
-SECRET_KEY = secret
