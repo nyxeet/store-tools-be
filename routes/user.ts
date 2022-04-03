@@ -8,7 +8,7 @@ import register from '../controllers/user/register';
 // import logout = require('../controllers/user/logout');
 // import getCurrentUser = require('../controllers/user/getCurrentUser');
 
-router.post('/register', register);
+router.post('/signup', register);
 router.post('/login', login);
 // router.post('/logout', jwtAuthenticate, logout);
 // router.get('/getCurrentUser', jwtAuthenticate, getCurrentUser);

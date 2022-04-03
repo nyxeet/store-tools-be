@@ -12,10 +12,11 @@ declare let process: {
 const { SECRET_KEY } = process.env;
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
-  const { name, login, password } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   try {
-    const result = await getOne({ login });
+    const result = await getOne({ email });
+    console.log(result);
 
     if (result) {
       return res.status(409).json({
@@ -25,13 +26,11 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
       });
     }
 
-    const newUser = await add({ name, login, password });
+    const newUser = await add({ firstName, lastName, email, password });
 
     const payload = {
       id: newUser._id,
     };
-
-    console.log('======', SECRET_KEY);
     const token = jwt.sign(payload, SECRET_KEY);
     await updateById(newUser._id, { token });
 
@@ -39,11 +38,9 @@ const register = async (req: Request, res: Response, next: NextFunction) => {
       status: 'success',
       code: 201,
       data: {
-        user: {
-          name: newUser.name,
-          login: newUser.login,
-          token,
-        },
+        name: `${newUser.firstName} ${newUser.lastName}`,
+        email: newUser.email,
+        token,
       },
     });
   } catch (error) {

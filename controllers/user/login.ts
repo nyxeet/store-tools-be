@@ -11,9 +11,9 @@ declare let process: {
 const { SECRET_KEY } = process.env;
 
 const login = async (req: Request, res: Response, next: NextFunction) => {
-  const { login, password } = req.body;
+  const { email, password } = req.body;
   try {
-    const user = await getOne({ login });
+    const user = await getOne({ email });
     if (!user || !user.comparePassword(password)) {
       res.status(400).json({
         status: 'error',
@@ -30,6 +30,8 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       status: 'success',
       code: 200,
       data: {
+        name: `${user.firstName} ${user.lastName}`,
+        email: user.email,
         token,
       },
     });

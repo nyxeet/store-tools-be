@@ -1,14 +1,16 @@
 import User from '../models/user';
 
 interface User {
-  name: string;
-  login: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   password: string;
 }
-export const add = ({ name, login, password }: User) => {
+export const add = ({ firstName, lastName, email, password }: User) => {
   const newUser = new User({
-    name,
-    login,
+    firstName,
+    lastName,
+    email,
   });
   newUser.setPassword(password);
   return newUser.save();
